@@ -1,0 +1,26 @@
+FuzzHead — plugin VST3 / AU / Standalone
+=================================================
+
+INSTALAR
+- Windows: copia la carpeta  VST3/FuzzHead.vst3  a
+      C:\Program Files\Common Files\VST3\
+  La app independiente (sin DAW) es  Standalone/FuzzHead.exe
+  Si Windows avisa («Windows protegió su PC»): Más información → Ejecutar de todas formas.
+- Mac: copia  VST3/FuzzHead.vst3  a  /Library/Audio/Plug-Ins/VST3/
+       y  AU/FuzzHead.component  a  /Library/Audio/Plug-Ins/Components/
+  La app independiente es  Standalone/FuzzHead.app
+  Si macOS dice que está dañado o no se abre, en Terminal:
+      xattr -cr "/Library/Audio/Plug-Ins/VST3/FuzzHead.vst3"
+      xattr -cr "/Library/Audio/Plug-Ins/Components/FuzzHead.component"
+Abre de nuevo el DAW para que lo detecte.
+
+USAR
+1. Pon FuzzHead en la pista de tu guitarra o bajo (insert). Elige Guitarra o Bajo arriba.
+2. Toca notas sueltas (monofónico): el sinte sigue tu nota, bends y vibrato.
+3. Elige el motor (Deep, Vintage, Solo, Strings, Harmony) y mezcla con Synth Mix.
+4. Añade Distorsión, Modulación, Bitcrush, Ring Mod y Gated Reverb; los tres últimos se pueden reordenar.
+5. Presets de fábrica en el desplegable; guarda los tuyos con «Guardar».
+La app Standalone (sin DAW) sirve para tocar en directo con tu interfaz de audio: en sus Opciones elige la entrada.
+
+PROBLEMAS
+Si algo falla, anota el DAW, el sistema y qué estabas haciendo, y avísanos.
