@@ -1,0 +1,37 @@
+# Compila FuzzHead para Windows (VST3 + Standalone) y macOS (VST3 + AU + Standalone, universal).
+# Sube esta carpeta a un repositorio de GitHub: cada push genera los binarios en la pestaña "Actions" > Artifacts.
+name: build-vst
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows
+            extra: ""
+          - os: macos-latest
+            name: macos
+            extra: -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar
+        run: cmake -S vst -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.extra }}
+      - name: Compilar
+        run: cmake --build build --config Release --parallel
+      - name: Empaquetar
+        shell: bash
+        run: |
+          mkdir out
+          cp -R build/FuzzHead_artefacts/Release/VST3 out/ || true
+          cp -R build/FuzzHead_artefacts/Release/AU out/ 2>/dev/null || true
+          cp -R build/FuzzHead_artefacts/Release/Standalone out/ || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fuzzhead-${{ matrix.name }}
+          path: out
