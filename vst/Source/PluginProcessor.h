@@ -23,6 +23,7 @@ static constexpr int kOrders[6][3] = { {0,1,2}, {0,2,1}, {1,0,2}, {1,2,0}, {2,0,
 class FuzzHeadProcessor : public juce::AudioProcessor, private juce::Timer
 {
 public:
+    static constexpr const char* kVersion = "1.1.0";   // igual que VERSION en CMakeLists.txt
     FuzzHeadProcessor();
     ~FuzzHeadProcessor() override = default;
 

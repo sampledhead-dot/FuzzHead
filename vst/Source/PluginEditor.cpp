@@ -260,10 +260,11 @@ FuzzHeadEditor::FuzzHeadEditor (FuzzHeadProcessor& p) : AudioProcessorEditor (&p
                      kModMix.get(), kCrush.get(), kBits.get(), kRingF.get(), kRingMix.get(), kTime.get(), kRevMix.get() })
         addAndMakeVisible (k);
 
-    versionLabel.setText (u8 ("FuzzHead · v1.0.1 · Sampled Head"), juce::dontSendNotification);
+    versionLabel.setText (u8 ("FuzzHead · VST v") + FuzzHeadProcessor::kVersion + u8 (" · Sampled Head"), juce::dontSendNotification);
     versionLabel.setColour (juce::Label::textColourId, col::cream.withAlpha (0.8f));
     versionLabel.setFont (juce::FontOptions (12.0f));
     addAndMakeVisible (versionLabel);
+    addChildComponent (update);
 
     refreshPresets();
     setSize (980, 630);
@@ -455,5 +456,6 @@ void FuzzHeadEditor::resized()
         fxLeft[fx].setEnabled (slot > 0); fxRight[fx].setEnabled (slot < 2);
     }
     versionLabel.setBounds (16, getHeight() - 30, 300, 20);
+    update.setBounds (getWidth() - 496, getHeight() - 36, 480, 30);
     repaint();
 }

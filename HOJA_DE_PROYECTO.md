@@ -87,6 +87,7 @@ Input gain ─┬─────────────────────
 - Probar antes de entregar (Node + Chrome headless para la web; `FuzzHeadTests` para el plugin).
 
 ## Historial de versiones
+- **VST v1.1.0** (18-11-2026): aviso de versión nueva en la ventana del plugin. La versión del VST va aparte de la web (la web sigue en v1.0.1).
 - **1.0.1** (18-11-2026): publicación en GitHub. `index.html` en la raíz (lo sirve GitHub Pages), `manifest.webmanifest`
   e iconos 192/512/maskable/apple-touch (placa de sampler sobre círculo naranja con pegatina FUZZHEAD), para que el
   portal SH-apps muestre su logo y se pueda añadir a la pantalla de inicio. Añadida al portal SH-apps (v8).
@@ -110,3 +111,13 @@ Input gain ─┬─────────────────────
 - **Plugin**: compilado y probado solo en Linux en esta entrega (sin audio real ni DAW). Windows/macOS se compilan
   con el workflow de GitHub Actions o localmente; no se ha podido ejecutar dentro de un DAW. Sin firma de código en macOS.
 - Los sonidos de los motores son diseños propios aproximados a las descripciones del manual, no una réplica.
+
+## Aviso de versión nueva (v1.1.0)
+`Source/UpdateBanner.h` (común a los plugins de Sampled Head):
+- Solo con la ventana abierta (nunca al escanear ni en el hilo de audio) y como mucho una vez al día por ordenador. Lo guarda en `<datos de usuario>/SampledHead/<Plugin>.settings`: `%APPDATA%` en Windows, `~/Library/Application Support` en Mac.
+- Pide a la API pública de GitHub la lista de releases del repo y elige la más alta con etiqueta `vst-vX.Y.Z`, sin contar borradores ni pre-releases.
+- Si es más nueva que la instalada, aparece una franja abajo a la derecha con «Descargar» (abre la release en el navegador) y «✕» (no volver a avisar de esa versión).
+- El plugin no se reemplaza solo: el DAW lo tiene cargado y está en una carpeta del sistema.
+- Usa la red del sistema: WinINet en Windows y NSURLSession en Mac. En Linux (solo pruebas) está sin curl y no consulta nada.
+- Pruebas: `SH_UPDATE_FAKE=<json>` y `SH_UPDATE_SETTINGS=<carpeta>`. Las pruebas cubren comparar versiones, elegir la release, que el aviso aparezca, que «✕» lo oculte y que con la misma versión no avise.
+- **Importante al publicar:** la versión del plugin está en `CMakeLists.txt` (`project(... VERSION x.y.z)`, que también da nombre a la release) y en `kVersion` del procesador. Hay que cambiar las dos.

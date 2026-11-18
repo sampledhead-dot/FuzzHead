@@ -1,5 +1,6 @@
 #pragma once
 #include "PluginProcessor.h"
+#include "UpdateBanner.h"
 
 namespace col
 {
@@ -74,6 +75,9 @@ private:
     std::unique_ptr<Knob> kSynthMix, kInt1, kInt2, kGain, kDepth, kModMix, kCrush, kBits, kRingF, kRingMix, kTime, kRevMix;
     juce::TextButton fxLeft[3], fxRight[3];
     juce::Label versionLabel;
+public:
+    shupdate::UpdateBanner update { "FuzzHead", "FuzzHead", FuzzHeadProcessor::kVersion, col::text, col::cream, col::accent };
+private:
     int lastOrder = -1, lastEngine = -1, presetCount = 0;
     juce::String lastPresetName;
 
