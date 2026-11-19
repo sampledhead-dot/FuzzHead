@@ -226,7 +226,7 @@ footer .btn{background:var(--plate);color:var(--ink)}
 <script id="dsp-src" type="text/plain">/*__DSP__*/</script>
 <script>
 'use strict';
-const APP_VERSION = '1.0.1';
+const APP_VERSION = '1.0.2';
 document.getElementById('ver').textContent = 'v' + APP_VERSION;
 
 /* ================== Informe de errores ================== */
@@ -754,6 +754,24 @@ $('dlBtn').onclick = () => {
 fillPresets('f:Default');
 refreshUI(); drawWave();
 step('App iniciada ' + APP_VERSION);
+</script>
+<script src="sh-core.js"></script>
+<script>
+/* 1.0.2: conexión con las demás apps (sh-core): recibe bajo o guitarra extraídos y envía el resultado */
+(function(){
+  if (!window.SH) return;
+  SH.ui.dock({ me: 'fuzzhead', pos: 'right', kinds: ['loop', 'stem'], sendHint: 'Manda el audio procesado (con el sinte) a otra app',
+    provide: async () => procBuf ? [{ name: 'FuzzHead · ' + ((fileMeta && fileMeta.name) || 'audio').replace(/\.[^.]+$/, ''), kind: 'loop', audio: procBuf }] : null,
+    accept: async list => {
+      const it = list.find(x => x.wav); if (!it) return false;
+      const n = (it.name || '') + ' ' + ((it.meta && it.meta.stem) || '');
+      if (/\b(bajo|bass)\b/i.test(n)) set('instrument', 'bass'); else if (/\b(guitarra|guitar)\b/i.test(n)) set('instrument', 'guitar');
+      stopPlay(); step('Recibido de ' + (it.from || '?') + ': ' + it.name);
+      try { await loadArrayBuffer(it.wav, { name: (it.name || 'audio') + '.wav', size: it.wav.byteLength, type: 'audio/wav (de ' + (it.from || '?') + ')' }); }
+      catch (err) { reportError('recibir de otra app', err); return false; }
+      return true;
+    } });
+})();
 </script>
 </body>
 </html>
