@@ -2,7 +2,7 @@
 
 Familia de apps de **Sampled Head**.
 
-**Versión actual:** 1.0.2 (19-11-2026)
+**Versión actual:** 1.0.3 (19-11-2026)
 
 **Repositorio:** https://github.com/sampledhead-dot/FuzzHead · **Web:** https://sampledhead-dot.github.io/FuzzHead/
 
@@ -87,6 +87,7 @@ Input gain ─┬─────────────────────
 - Probar antes de entregar (Node + Chrome headless para la web; `FuzzHeadTests` para el plugin).
 
 ## Historial de versiones
+- **1.0.3** (19-11-2026): los mandos de Bitcrush, Ring Mod y Gated Reverb no llegaban al final del recorrido: cada cambio volvía a colocar los módulos en su orden (`appendChild`) y eso cortaba el arrastre. Ahora solo se reordenan si el orden cambió.
 - **1.0.2** (19-11-2026): conexión con todas las apps de Sampled Head (sh-core): botón «⇄ Apps» con «Recibido» y «Enviar a…»; en Windows/Mac usa la carpeta Documentos/SampledHead. Recibe el bajo o la guitarra que saca el Extractor (elige Bajo/Guitarra por el nombre) y envía el audio procesado.
 - **VST v1.1.0** (18-11-2026): aviso de versión nueva en la ventana del plugin. La versión del VST va aparte de la web (la web sigue en v1.0.1).
 - **1.0.1** (18-11-2026): publicación en GitHub. `index.html` en la raíz (lo sirve GitHub Pages), `manifest.webmanifest`

@@ -735,7 +735,7 @@ if (typeof module !== 'undefined' && module.exports) {
 </script>
 <script>
 'use strict';
-const APP_VERSION = '1.0.2';
+const APP_VERSION = '1.0.3';
 document.getElementById('ver').textContent = 'v' + APP_VERSION;
 
 /* ================== Informe de errores ================== */
@@ -968,7 +968,10 @@ function refreshUI(){
   $('m-dist').classList.toggle('off', !P.distOn);
   $('m-mod').classList.toggle('off', !P.modOn || !P.synthOn);
   for (const id in FX) fxEls[id].classList.toggle('off', !P[FX[id].on]);
-  const g = $('fxGroup'); P.order.forEach(id => g.appendChild(fxEls[id]));
+  // Reordenar solo si el orden cambió: mover un módulo en el DOM mientras se arrastra uno de sus mandos cancela el
+  // arrastre (se pierde el pointer capture) y el mando no llegaba al final del recorrido (v1.0.3).
+  const g = $('fxGroup'), cur = [...g.children].filter(c => Object.values(fxEls).includes(c));
+  if (P.order.some((id, i) => cur[i] !== fxEls[id])) P.order.forEach(id => g.appendChild(fxEls[id]));
   const names = {crush:'Bitcrush', ring:'Ring Mod', rev:'Gated Reverb'};
   $('flowline').textContent = 'Cadena: Input → Sinte(+Mod) → Dist PRE → ' + P.order.map(i => names[i]).join(' → ') + ' → Dist POST → Mix → Output';
 }
