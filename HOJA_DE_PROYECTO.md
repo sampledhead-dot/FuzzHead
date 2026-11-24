@@ -87,6 +87,7 @@ Input gain ─┬─────────────────────
 - Probar antes de entregar (Node + Chrome headless para la web; `FuzzHeadTests` para el plugin).
 
 ## Historial de versiones
+- **1.0.4** (24-11-2026): botón ☰ arriba a la derecha con el **menú común «☰ Menú»** de todas las apps (sh-core 1.5.0, `SH.ui.menu`): mismas secciones desplegables y en el mismo orden — Proyecto · Importar · Exportar · Otras apps · Copia de tus datos · Ajustes · Ayuda (guía e informe .txt) —; recuerda la sección abierta; los botones de siempre siguen haciendo lo mismo (el menú los pulsa); «⇄ Apps» va dentro (Otras apps, con el número de recibidos en el botón ☰). Presets en Proyecto.
 - **1.0.3** (19-11-2026): los mandos de Bitcrush, Ring Mod y Gated Reverb no llegaban al final del recorrido: cada cambio volvía a colocar los módulos en su orden (`appendChild`) y eso cortaba el arrastre. Ahora solo se reordenan si el orden cambió.
 - **1.0.2** (19-11-2026): conexión con todas las apps de Sampled Head (sh-core): botón «⇄ Apps» con «Recibido» y «Enviar a…»; en Windows/Mac usa la carpeta Documentos/SampledHead. Recibe el bajo o la guitarra que saca el Extractor (elige Bajo/Guitarra por el nombre) y envía el audio procesado.
 - **VST v1.1.0** (18-11-2026): aviso de versión nueva en la ventana del plugin. La versión del VST va aparte de la web (la web sigue en v1.0.1).

@@ -735,7 +735,7 @@ if (typeof module !== 'undefined' && module.exports) {
 </script>
 <script>
 'use strict';
-const APP_VERSION = '1.0.3';
+const APP_VERSION = '1.0.4';
 document.getElementById('ver').textContent = 'v' + APP_VERSION;
 
 /* ================== Informe de errores ================== */
@@ -1283,6 +1283,19 @@ step('App iniciada ' + APP_VERSION);
       catch (err) { reportError('recibir de otra app', err); return false; }
       return true;
     } });
+})();
+</script>
+<script>
+/* 1.0.4: menú común «☰ Menú» de todas las apps (sh-core 1.5.0). «⇄ Apps» va dentro (Otras apps). */
+(function () {
+  if (!window.SH || !SH.ui || !SH.ui.menu) return;
+  SH.ui.menu({
+    me: 'fuzzhead', version: APP_VERSION, button: 'auto',
+    proyecto: [{ title: 'Presets' }, { icon: '💾', click: '#saveP', label: 'Guardar el sonido como preset' }, { icon: '⬇', click: '#expP', label: 'Guardar mis presets en un archivo (.json)' }, { icon: '⬆', click: '#impP', label: 'Abrir presets de un archivo (.json)' }],
+    importar: [{ icon: '📂', click: '#file', label: 'Abrir audio (guitarra o bajo)' }],
+    exportar: [{ icon: '⬇', click: '#dlBtn', label: 'Descargar el resultado en WAV' }],
+    report: () => document.getElementById('reportBtn').click()
+  });
 })();
 </script>
 </body>
